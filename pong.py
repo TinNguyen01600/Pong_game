@@ -35,6 +35,35 @@ ball.color('white')
 ball.up()
 ball.goto(0, 0)
 
+# Function
+def paddle_a_up():
+    y = paddle_a.ycor() # returns the y-coordinate of paddle_a
+                        # y increases when we go up and decreases when go down
+    y += 20 # add 20px to y-coordinate
+    paddle_a.sety(y)
+    
+def paddle_a_down():
+    y = paddle_a.ycor()
+    y -= 20
+    paddle_a.sety(y)
+    
+def paddle_b_up():
+    y = paddle_b.ycor()
+    y += 20
+    paddle_b.sety(y)
+    
+def paddle_b_down():
+    y = paddle_b.ycor()
+    y -= 20
+    paddle_b.sety(y)
+    
+# Keyboard binding
+wn.listen()     # tells the program to listen for keyboard input
+wn.onkeypress(paddle_a_up, "w") # when "w" is pressed, call the function paddle_a_up
+wn.onkeypress(paddle_a_down, "s")
+wn.onkeypress(paddle_b_up, "Up")
+wn.onkeypress(paddle_b_down, "Down")
+
 # Main game loop
 while(True):
     wn.update()
