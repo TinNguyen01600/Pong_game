@@ -1,11 +1,15 @@
-from this import d
 import turtle
+import os
 
 wn = turtle.Screen()
 wn.title("Pong")
 wn.bgcolor("black")
 wn.setup(width = 800, height = 600) #0;0 is the center with edges (-400, 400) and (-300, 300)
 wn.tracer(0)
+
+# Score
+score_a = 0
+score_b = 0
 
 # Paddle A
 paddle_a = turtle.Turtle()
@@ -38,6 +42,16 @@ ball.goto(0, 0)
 ball.dx = 0.08   # d means delta (change)
 ball.dy = 0.08   # every time the ball moves, it moves by 0.08px (up and right)
                 # the higher delta is, the faster the ball moves
+
+# Pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color('white')
+pen.up()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Player A: 0  Player B: 0", align='center', font=('Courier', 24, 'normal'))
+
             
 # Function
 def paddle_a_up():
@@ -87,10 +101,16 @@ while(True):
         ball.goto(0,0)
         ball.dx = -0.08     # reset the ball speed
         ball.dy = 0.08
+        score_a += 1
+        pen.clear()         # clear the pen turtle
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align='center', font=('Courier', 24, 'normal'))
     if ball.xcor() < -390:
         ball.goto(0,0)
         ball.dx = 0.08     # reset the ball speed
         ball.dy = 0.08
+        score_b += 1
+        pen.clear()         # clear the pen turtle
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align='center', font=('Courier', 24, 'normal'))
     
     # Paddle and ball collisions
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
