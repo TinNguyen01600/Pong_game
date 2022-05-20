@@ -1,3 +1,4 @@
+from this import d
 import turtle
 
 wn = turtle.Screen()
@@ -34,9 +35,10 @@ ball.penup()
 ball.goto(0, 0)
 
 # Seperate ball movement into x and y
-ball.dx = 2 # d means delta (change)
-ball.dy = 2 # every time the ball moves, it moves by 2px (up and right)
-
+ball.dx = 0.08   # d means delta (change)
+ball.dy = 0.08   # every time the ball moves, it moves by 0.08px (up and right)
+                # the higher delta is, the faster the ball moves
+            
 # Function
 def paddle_a_up():
     y = paddle_a.ycor() # returns the y-coordinate of paddle_a
@@ -77,19 +79,28 @@ while(True):
     #Border checking
     if ball.ycor() > 290:
         ball.sety(290)
-        ball.dy *= -1   #reverse the ball's direction
+        ball.dy *= -1   #reverse the ball's direction (going down)
     if ball.ycor() < -290:
         ball.sety(-290)
-        ball.dy *= -1
-    if ball.xcor() > 390 or ball.xcor() < -390:
+        ball.dy *= -1   #reverse the ball's direction (going up)
+    if ball.xcor() > 390:
         ball.goto(0,0)
-        ball.dx *= -1
+        ball.dx = -0.08     # reset the ball speed
+        ball.dy = 0.08
+    if ball.xcor() < -390:
+        ball.goto(0,0)
+        ball.dx = 0.08     # reset the ball speed
+        ball.dy = 0.08
     
     # Paddle and ball collisions
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
         ball.setx(340)
-        ball.dx *= -1
+        ball.dx *= -1   # reverse the ball's direction (left/right)
+        ball.dx *= 1.03 # increses the speed of the ball 3% everytime it hits a paddle
+        ball.dy *= 1.03
     if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
         ball.setx(-340)
-        ball.dx *= -1
+        ball.dx *= -1   # reverse the ball's direction (left/right)
+        ball.dx *= 1.03
+        ball.dy *= 1.03
     
