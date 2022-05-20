@@ -18,8 +18,7 @@ paddle_a.goto(-350, 0)
 
 # Paddle B
 paddle_b = turtle.Turtle()
-paddle_b.speed(0)   # not the speed of the paddle moving on the screen
-                    # it's the speed of animation. 0 = maximum speed
+paddle_b.speed(0)
 paddle_b.shape('square')    # size is 20px x 20px
 paddle_b.color('white')
 paddle_b.shapesize(stretch_wid=5, stretch_len=1)    # wid = 100px, len = 20px
@@ -28,12 +27,15 @@ paddle_b.goto(350, 0)
 
 # Ball
 ball = turtle.Turtle()
-ball.speed(0)   # not the speed of the paddle moving on the screen
-                    # it's the speed of animation. 0 = maximum speed
+ball.speed(0)
 ball.shape('circle')    # size is 20px x 20px
 ball.color('white')
-ball.up()
+ball.penup()
 ball.goto(0, 0)
+
+# Seperate ball movement into x and y
+ball.dx = 2 # d means delta (change)
+ball.dy = 2 # every time the ball moves, it moves by 2px (up and right)
 
 # Function
 def paddle_a_up():
@@ -67,3 +69,27 @@ wn.onkeypress(paddle_b_down, "Down")
 # Main game loop
 while(True):
     wn.update()
+    
+    # Move the ball
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
+    
+    #Border checking
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1   #reverse the ball's direction
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+    if ball.xcor() > 390 or ball.xcor() < -390:
+        ball.goto(0,0)
+        ball.dx *= -1
+    
+    # Paddle and ball collisions
+    if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
+        ball.setx(340)
+        ball.dx *= -1
+    if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
+        ball.setx(-340)
+        ball.dx *= -1
+    
