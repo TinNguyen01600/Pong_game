@@ -1,5 +1,5 @@
 import turtle
-import os
+import winsound
 
 wn = turtle.Screen()
 wn.title("Pong")
@@ -94,9 +94,11 @@ while(True):
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1   #reverse the ball's direction (going down)
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)    #plays the sound when the ball hits ceiling
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1   #reverse the ball's direction (going up)
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)    #plays the sound when the ball hits bottom
     if ball.xcor() > 390:
         ball.goto(0,0)
         ball.dx = -0.08     # reset the ball speed
@@ -118,9 +120,11 @@ while(True):
         ball.dx *= -1   # reverse the ball's direction (left/right)
         ball.dx *= 1.03 # increses the speed of the ball 3% everytime it hits a paddle
         ball.dy *= 1.03
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)    #plays the sound when the ball hits paddle
     if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
         ball.setx(-340)
         ball.dx *= -1   # reverse the ball's direction (left/right)
         ball.dx *= 1.03
         ball.dy *= 1.03
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)    #plays the sound when the ball hits paddle
     
