@@ -11,8 +11,8 @@
 
 <h2>Setups </h2>
 <ol>
-<li>Download the pond.py file</li>
-<li>Go to the folder where you save the pong.py file</li>
+<li>Download the pong.py and bounce.wav files</li>
+<li>Save these files into a newly created folder</li>
 <li>Open cmd window by clicking into address bar and type 'cmd'</li>
 <li>Run the game by command 'py pong.py'</li>
 </ol>
